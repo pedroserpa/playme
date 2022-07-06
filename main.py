@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
+import pygame
 from pygame import mixer
 import sys
 import os
@@ -24,6 +25,8 @@ class PlayMe(QMainWindow):
         #self.playlist = []
         self.paused = False
         self.get_file_list()
+
+        self.timeLabel.setText('00:00')
 
         self.chooseFileText.setText('')
         self.chooseFileBtn.clicked.connect(self.on_file_open)
@@ -116,6 +119,7 @@ class PlayMe(QMainWindow):
         mixer.music.load(file)
         mixer.music.play()
 
+        #WHY?
         self.on_play(self.on_play)
 
     def on_volume_set(self):
@@ -127,10 +131,22 @@ class PlayMe(QMainWindow):
             mixer.music.unpause()
         else:
             mixer.music.play()
+            mixer.music.set_endevent()
+
         self.playBtn.setEnabled(False)
         self.stopBtn.setEnabled(True)
         self.pauseBtn.setEnabled(True)
-        # self.volBtn.Enable()
+
+        #self.timeLabel.setText(mixer.music.get_pos() / 1000)
+        
+        print(mixer.music.get_pos())
+        #if not self.paused:
+            #mixer.music.set_endevent()
+
+        print(mixer.music.get_endevent())
+        if mixer.music.get_endevent():
+            print('passa à frente')
+
 
     def on_pause(self, event):
         self.paused = True
