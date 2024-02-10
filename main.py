@@ -26,7 +26,7 @@ class PlayMe(QMainWindow):
         self.paused = False
         self.get_file_list()
 
-        self.timeLabel.setText('00:00')
+        #self.timeLabel.setText('00:00')
 
         self.chooseFileText.setText('')
         self.chooseFileBtn.clicked.connect(self.on_file_open)
